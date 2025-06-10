@@ -139,7 +139,7 @@ func (p *WorkerPool[T]) worker(id uint32) {
 			close(task.resultCh)
 
 		case <-idle.C:
-			if int(p.workerCount.Load()) > p.maxWorkers {
+			if int(p.workerCount.Load()) > p.minWorkers {
 				log.Printf("Worker %d: idle timeout; exiting", id)
 				return
 			}
